@@ -50,7 +50,7 @@ macro_rules! impl_loadable {
     };
 }
 #[cfg_attr(feature = "client", derive(Debug))]
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy, Default)]
 pub struct TargetOrder {
     pub price: u64,
@@ -64,7 +64,7 @@ unsafe impl Pod for TargetOrder {}
 unsafe impl TriviallyTransmutable for TargetOrder {}
 
 #[cfg_attr(feature = "client", derive(Debug))]
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy)]
 pub struct TargetOrders {
     pub owner: [u64; 4],
@@ -454,7 +454,7 @@ fn validate_fraction(numerator: u64, denominator: u64) -> Result<(), AmmError> {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Fees {
     /// numerator of the min_separate
@@ -564,7 +564,7 @@ impl Pack for Fees {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct StateData {
     /// delay to take pnl coin
@@ -618,7 +618,7 @@ impl StateData {
 }
 
 #[cfg_attr(feature = "client", derive(Debug))]
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy, Default, PartialEq)]
 pub struct AmmInfo {
     /// Initialized status.
@@ -836,7 +836,7 @@ impl AmmInfo {
 }
 
 /// State of amm config account
-#[repr(C)]
+#[repr(C, packed)]
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct AmmConfig {
     /// withdraw pnl owner
